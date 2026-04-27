@@ -1,4 +1,5 @@
 import { Leaf } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 export function Footer() {
   return (
@@ -34,7 +35,7 @@ export function Footer() {
         <div className="text-sm">
           <h4 className="font-semibold text-white">Rechtliches</h4>
           <ul className="mt-3 space-y-2">
-            <li><a href="#" className="hover:text-primary-glow">Impressum</a></li>
+            <li><Link to="/impressum" className="hover:text-primary-glow">Impressum</Link></li>
             <li><a href="#" className="hover:text-primary-glow">Datenschutz</a></li>
           </ul>
         </div>
