@@ -21,11 +21,11 @@ export function Footer() {
           <ul className="mt-3 space-y-2">
             <li>Deutschland</li>
             <li>
-              <a href="tel:+4915000000000" className="hover:text-primary-glow">+49 150 00 000 00</a>
+              <a href="tel:+4915155510325" className="hover:text-primary-glow">0151 55510325</a>
             </li>
             <li>
-              <a href="mailto:kontakt@abdelhady-gruenpflege.de" className="hover:text-primary-glow">
-                kontakt@abdelhady-gruenpflege.de
+              <a href="mailto:n@abdelhady-gruenpflege.de" className="hover:text-primary-glow">
+                n@abdelhady-gruenpflege.de
               </a>
             </li>
           </ul>
