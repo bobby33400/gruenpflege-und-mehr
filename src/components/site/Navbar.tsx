@@ -31,7 +31,7 @@ export function Navbar() {
     >
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 md:h-20">
         <a href="#top" className="flex items-center gap-2 font-semibold">
-          <img src={logo} alt="Abdelhady Grünpflege Logo" className="h-10 w-10 object-contain" />
+          <img src={logo} alt="Abdelhady Grünpflege Logo" className="h-8 w-8 md:h-10 md:w-10 object-contain shrink-0" />
           <span className={cn("text-base md:text-lg", scrolled ? "text-foreground" : "text-white")}>
             Abdelhady <span className="text-primary-glow">Grünpflege</span>
           </span>
