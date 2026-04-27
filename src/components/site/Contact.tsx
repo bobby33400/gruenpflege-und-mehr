@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { z } from "zod";
 
 const schema = z.object({
@@ -119,6 +120,16 @@ export function Contact() {
           >
             Kostenloses Angebot erhalten
           </button>
+
+          <p className="mt-4 text-xs text-muted-foreground leading-relaxed">
+            Mit dem Absenden willigen Sie ein, dass Ihre Angaben zur
+            Bearbeitung Ihrer Anfrage verarbeitet werden. Weitere Informationen
+            finden Sie in unserer{" "}
+            <Link to="/datenschutz" className="text-primary hover:underline">
+              Datenschutzerklärung
+            </Link>
+            . Sie können Ihre Einwilligung jederzeit per E-Mail widerrufen.
+          </p>
         </form>
       </div>
     </section>
