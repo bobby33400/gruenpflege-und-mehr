@@ -50,8 +50,8 @@ export function Contact() {
               <span className="grid place-items-center h-10 w-10 rounded-lg bg-accent text-primary">
                 <Phone className="h-5 w-5" />
               </span>
-              <a href="tel:+4915000000000" className="text-foreground hover:text-primary">
-                +49 150 00 000 00
+              <a href="tel:+4915155510325" className="text-foreground hover:text-primary">
+                0151 55510325
               </a>
             </li>
             <li className="flex items-center gap-3">
