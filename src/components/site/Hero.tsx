@@ -1,4 +1,5 @@
 import heroImg from "@/assets/hero-garden.jpg";
+import logo from "@/assets/logo.png";
 
 export function Hero() {
   return (
