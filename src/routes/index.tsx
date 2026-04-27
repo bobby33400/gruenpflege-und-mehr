@@ -8,7 +8,6 @@ import { Gallery } from "@/components/site/Gallery";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppButton } from "@/components/site/WhatsAppButton";
-import { SectionDivider } from "@/components/site/SectionDivider";
 
 const SITE_URL = "https://gruenpflege-und-mehr.lovable.app";
 const PAGE_TITLE =
@@ -78,11 +77,8 @@ function Index() {
       <main>
         <Hero />
         <Services />
-        <SectionDivider />
         <WhyUs />
-        <SectionDivider />
         <About />
-        <SectionDivider />
         <Gallery />
         <Contact />
       </main>
