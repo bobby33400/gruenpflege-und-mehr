@@ -27,7 +27,7 @@ export function Contact() {
       return;
     }
     const body = `Name: ${parsed.data.name}%0ATelefon: ${parsed.data.phone}%0AE-Mail: ${parsed.data.email}%0A%0A${encodeURIComponent(parsed.data.message)}`;
-    window.location.href = `mailto:kontakt@abdelhady-gruenpflege.de?subject=Angebotsanfrage&body=${body}`;
+    window.location.href = `mailto:n@abdelhady-gruenpflege.de?subject=Angebotsanfrage&body=${body}`;
     setStatus({ ok: true, msg: "Vielen Dank! Ihre E-Mail wird vorbereitet." });
     e.currentTarget.reset();
   };
@@ -59,7 +59,7 @@ export function Contact() {
                 <MessageCircle className="h-5 w-5" />
               </span>
               <a
-                href="https://wa.me/4915000000000"
+                href="https://wa.me/4915155510325"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-foreground hover:text-primary"
@@ -71,8 +71,8 @@ export function Contact() {
               <span className="grid place-items-center h-10 w-10 rounded-lg bg-accent text-primary">
                 <Mail className="h-5 w-5" />
               </span>
-              <a href="mailto:kontakt@abdelhady-gruenpflege.de" className="text-foreground hover:text-primary">
-                kontakt@abdelhady-gruenpflege.de
+              <a href="mailto:n@abdelhady-gruenpflege.de" className="text-foreground hover:text-primary">
+                n@abdelhady-gruenpflege.de
               </a>
             </li>
             <li className="flex items-center gap-3">
