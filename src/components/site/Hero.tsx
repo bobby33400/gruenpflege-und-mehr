@@ -1,5 +1,4 @@
 import heroImg from "@/assets/hero-garden.jpg";
-import logoImg from "@/assets/logo.png";
 
 export function Hero() {
   return (
@@ -18,8 +17,7 @@ export function Hero() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-32 md:py-40 text-white">
         <div className="max-w-3xl animate-fade-in-up">
-          <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur-sm pl-1.5 pr-4 py-1.5 text-sm font-medium border border-white/20">
-            <img src={logoImg} alt="" aria-hidden="true" className="h-6 w-6 object-contain" />
+          <span className="inline-block rounded-full bg-white/15 backdrop-blur-sm px-4 py-1.5 text-sm font-medium border border-white/20">
             Grünpflege & Umzüge in Deutschland
           </span>
           <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-tight">
