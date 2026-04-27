@@ -1,5 +1,5 @@
-import { Leaf } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import logo from "@/assets/logo.png";
 
 export function Footer() {
   return (
@@ -7,9 +7,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 grid gap-8 md:grid-cols-3">
         <div>
           <div className="flex items-center gap-2 text-white">
-            <span className="grid place-items-center h-9 w-9 rounded-lg bg-primary">
-              <Leaf className="h-5 w-5" />
-            </span>
+            <img src={logo} alt="Abdelhady Grünpflege Logo" className="h-10 w-10 object-contain" />
             <span className="font-semibold">Abdelhady Grünpflege</span>
           </div>
           <p className="mt-3 text-sm text-white/60 max-w-xs">
