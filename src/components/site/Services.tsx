@@ -1,4 +1,4 @@
-import { Leaf, Scissors, Truck, PackageOpen } from "lucide-react";
+import { Leaf, Scissors, Truck, PackageOpen, Wrench } from "lucide-react";
 
 const services = [
   {
@@ -10,6 +10,11 @@ const services = [
     icon: Scissors,
     title: "Gartenarbeit",
     desc: "Rasen mähen, Heckenschnitt und Unkraut entfernen – Ihr Garten in besten Händen.",
+  },
+  {
+    icon: Wrench,
+    title: "Hausmeisterservice",
+    desc: "Zuverlässige Betreuung Ihrer Immobilie – kleine Reparaturen, Reinigung und regelmäßige Kontrollen.",
   },
   {
     icon: Truck,
@@ -39,7 +44,7 @@ export function Services() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {services.map((s, i) => (
             <article
               key={s.title}
