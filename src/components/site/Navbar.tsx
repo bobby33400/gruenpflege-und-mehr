@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Menu, X, Leaf } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import logo from "@/assets/logo.png";
 
 const links = [
   { href: "#leistungen", label: "Leistungen" },
@@ -30,9 +31,7 @@ export function Navbar() {
     >
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 md:h-20">
         <a href="#top" className="flex items-center gap-2 font-semibold">
-          <span className="grid place-items-center h-9 w-9 rounded-lg bg-primary text-primary-foreground">
-            <Leaf className="h-5 w-5" />
-          </span>
+          <img src={logo} alt="Abdelhady Grünpflege Logo" className="h-10 w-10 object-contain" />
           <span className={cn("text-base md:text-lg", scrolled ? "text-foreground" : "text-white")}>
             Abdelhady <span className="text-primary-glow">Grünpflege</span>
           </span>
