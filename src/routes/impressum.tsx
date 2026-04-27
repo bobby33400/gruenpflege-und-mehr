@@ -5,7 +5,12 @@ export const Route = createFileRoute("/impressum")({
   head: () => ({
     meta: [
       { title: "Impressum – Abdelhady Grünpflege" },
-      { name: "description", content: "Impressum von Abdelhady Grünpflege, Oedheim." },
+      {
+        name: "description",
+        content:
+          "Impressum von Abdelhady Grünpflege, Oedheim – Anbieterkennzeichnung gemäß § 5 TMG und § 55 RStV.",
+      },
+      { name: "robots", content: "noindex" },
     ],
   }),
 });
@@ -19,12 +24,13 @@ function Impressum() {
         </Link>
         <h1 className="mt-6 text-3xl md:text-4xl font-bold">Impressum</h1>
 
-        <section className="mt-8 space-y-2 text-foreground">
-          <p className="font-semibold">Angaben gemäß § 5 TMG</p>
+        <section className="mt-8 space-y-2">
+          <h2 className="text-xl font-semibold">Angaben gemäß § 5 TMG</h2>
           <p>Abdelhady Grünpflege</p>
-          <p>Nour Aldeen Abdelhady</p>
+          <p>Inhaber: Nour Aldeen Abdelhady</p>
           <p>Am Willenbach 3/1</p>
           <p>74229 Oedheim</p>
+          <p>Deutschland</p>
         </section>
 
         <section className="mt-8 space-y-2">
@@ -47,11 +53,65 @@ function Impressum() {
         </section>
 
         <section className="mt-8 space-y-2">
+          <h2 className="text-xl font-semibold">Umsatzsteuer-ID</h2>
+          <p className="text-muted-foreground">
+            Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:
+            <br />
+            <span className="italic">[Platzhalter – bitte ergänzen]</span>
+          </p>
+        </section>
+
+        <section className="mt-8 space-y-2">
           <h2 className="text-xl font-semibold">
             Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV
           </h2>
           <p>Nour Aldeen Abdelhady</p>
-          <p>Am Willenbach 3/1, 74229 Oedheim</p>
+          <p>Am Willenbach 3/1</p>
+          <p>74229 Oedheim</p>
+          <p>Deutschland</p>
+        </section>
+
+        <section className="mt-8 space-y-2">
+          <h2 className="text-xl font-semibold">Berufshaftpflichtversicherung</h2>
+          <p className="text-muted-foreground">
+            Name und Sitz des Versicherers:{" "}
+            <span className="italic">[Platzhalter – bitte ergänzen]</span>
+            <br />
+            Geltungsraum der Versicherung:{" "}
+            <span className="italic">[Platzhalter – bitte ergänzen]</span>
+          </p>
+        </section>
+
+        <section className="mt-8 space-y-2">
+          <h2 className="text-xl font-semibold">
+            Streitschlichtung
+          </h2>
+          <p>
+            Die Europäische Kommission stellt eine Plattform zur
+            Online-Streitbeilegung (OS) bereit:{" "}
+            <a
+              href="https://ec.europa.eu/consumers/odr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              https://ec.europa.eu/consumers/odr
+            </a>
+            .
+          </p>
+          <p>
+            Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren
+            vor einer Verbraucherschlichtungsstelle teilzunehmen.
+          </p>
+        </section>
+
+        <section className="mt-8 space-y-2">
+          <h2 className="text-xl font-semibold">Haftungsausschluss</h2>
+          <p className="text-muted-foreground">
+            Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine
+            Haftung für die Inhalte externer Links. Für den Inhalt der
+            verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
+          </p>
         </section>
       </main>
     </div>
