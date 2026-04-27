@@ -1,21 +1,27 @@
 import { useState } from "react";
-import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, MessageCircle, Loader2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { z } from "zod";
+import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Bitte Namen eingeben").max(100),
   email: z.string().trim().email("Ungültige E-Mail-Adresse").max(255),
   phone: z.string().trim().min(1, "Bitte Telefonnummer eingeben").max(40),
-  message: z.string().trim().min(1, "Bitte Nachricht eingeben").max(1000),
+  message: z.string().trim().min(1, "Bitte Nachricht eingeben").max(2000),
 });
 
 export function Contact() {
-  const [status, setStatus] = useState<{ ok: boolean; msg: string } | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = new FormData(e.currentTarget);
+    setErrorMsg(null);
+
+    const formEl = e.currentTarget;
+    const form = new FormData(formEl);
     const data = {
       name: String(form.get("name") || ""),
       email: String(form.get("email") || ""),
@@ -24,13 +30,27 @@ export function Contact() {
     };
     const parsed = schema.safeParse(data);
     if (!parsed.success) {
-      setStatus({ ok: false, msg: parsed.error.issues[0]?.message ?? "Bitte Eingaben prüfen." });
+      setErrorMsg(parsed.error.issues[0]?.message ?? "Bitte Eingaben prüfen.");
       return;
     }
-    const body = `Name: ${parsed.data.name}%0ATelefon: ${parsed.data.phone}%0AE-Mail: ${parsed.data.email}%0A%0A${encodeURIComponent(parsed.data.message)}`;
-    window.location.href = `mailto:n@abdelhady-gruenpflege.de?subject=Angebotsanfrage&body=${body}`;
-    setStatus({ ok: true, msg: "Vielen Dank! Ihre E-Mail wird vorbereitet." });
-    e.currentTarget.reset();
+
+    setLoading(true);
+    const { error } = await supabase
+      .from("contact_submissions")
+      .insert(parsed.data);
+    setLoading(false);
+
+    if (error) {
+      console.error("Kontaktformular Fehler:", error);
+      setErrorMsg(
+        "Anfrage konnte nicht gesendet werden. Bitte später erneut versuchen oder uns direkt anrufen."
+      );
+      toast.error("Anfrage konnte nicht gesendet werden.");
+      return;
+    }
+
+    toast.success("Vielen Dank! Wir melden uns schnellstmöglich bei Ihnen.");
+    formEl.reset();
   };
 
   return (
@@ -91,34 +111,40 @@ export function Contact() {
           style={{ boxShadow: "var(--shadow-card)" }}
         >
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Name" name="name" placeholder="Ihr Name" />
-            <Field label="Telefonnummer" name="phone" placeholder="+49 ..." type="tel" />
+            <Field label="Name" name="name" placeholder="Ihr Name" required />
+            <Field label="Telefonnummer" name="phone" placeholder="+49 ..." type="tel" required />
           </div>
           <div className="mt-4">
-            <Field label="E-Mail" name="email" placeholder="ihre@email.de" type="email" />
+            <Field label="E-Mail" name="email" placeholder="ihre@email.de" type="email" required />
           </div>
           <div className="mt-4">
-            <label className="block text-sm font-medium text-foreground">Nachricht</label>
+            <label className="block text-sm font-medium text-foreground" htmlFor="message">
+              Nachricht
+            </label>
             <textarea
+              id="message"
               name="message"
               rows={5}
-              maxLength={1000}
+              maxLength={2000}
+              required
               placeholder="Wie können wir helfen?"
               className="mt-1.5 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
             />
           </div>
 
-          {status && (
-            <p className={`mt-4 text-sm ${status.ok ? "text-primary" : "text-destructive"}`}>
-              {status.msg}
+          {errorMsg && (
+            <p className="mt-4 text-sm text-destructive" role="alert">
+              {errorMsg}
             </p>
           )}
 
           <button
             type="submit"
-            className="mt-6 w-full inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-base font-semibold text-primary-foreground hover:bg-primary-deep transition-colors"
+            disabled={loading}
+            className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-base font-semibold text-primary-foreground hover:bg-primary-deep transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            Kostenloses Angebot erhalten
+            {loading && <Loader2 className="h-4 w-4 animate-spin" />}
+            {loading ? "Wird gesendet..." : "Kostenloses Angebot erhalten"}
           </button>
 
           <p className="mt-4 text-xs text-muted-foreground leading-relaxed">
@@ -141,19 +167,25 @@ function Field({
   name,
   placeholder,
   type = "text",
+  required = false,
 }: {
   label: string;
   name: string;
   placeholder?: string;
   type?: string;
+  required?: boolean;
 }) {
   return (
     <div>
-      <label className="block text-sm font-medium text-foreground">{label}</label>
+      <label className="block text-sm font-medium text-foreground" htmlFor={name}>
+        {label}
+      </label>
       <input
+        id={name}
         type={type}
         name={name}
         maxLength={255}
+        required={required}
         placeholder={placeholder}
         className="mt-1.5 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
       />
