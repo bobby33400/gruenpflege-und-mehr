@@ -44,7 +44,7 @@ export function Services() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 [&>*:nth-child(1)]:lg:col-span-2 [&>*:nth-child(2)]:lg:col-span-2 [&>*:nth-child(3)]:lg:col-span-2 [&>*:nth-child(4)]:lg:col-span-3 [&>*:nth-child(5)]:lg:col-span-3 [&>*:nth-child(4)]:sm:col-span-2 [&>*:nth-child(5)]:sm:col-span-2 [&>*:nth-child(4)]:sm:max-w-md [&>*:nth-child(5)]:sm:max-w-md [&>*:nth-child(4)]:sm:mx-auto [&>*:nth-child(5)]:sm:mx-auto">
+        <div className="mt-12 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 [&>*:nth-child(1)]:lg:col-span-2 [&>*:nth-child(2)]:lg:col-span-2 [&>*:nth-child(3)]:lg:col-span-2 [&>*:nth-child(4)]:lg:col-span-3 [&>*:nth-child(5)]:lg:col-span-3 [&>*:nth-child(5)]:sm:col-start-1 [&>*:nth-child(5)]:sm:col-end-3 [&>*:nth-child(5)]:sm:max-w-[calc(50%-0.75rem)] [&>*:nth-child(5)]:sm:mx-auto [&>*:nth-child(5)]:lg:max-w-none [&>*:nth-child(5)]:lg:mx-0 [&>*:nth-child(5)]:lg:col-start-auto">
           {services.map((s, i) => (
             <article
               key={s.title}
