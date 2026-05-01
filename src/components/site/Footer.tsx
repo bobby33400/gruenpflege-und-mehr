@@ -39,9 +39,8 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5 text-xs text-white/50 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5 text-xs text-white/50">
           <p>© {new Date().getFullYear()} Abdelhady Grünpflege. Alle Rechte vorbehalten.</p>
-          <p>Made with care in Germany 🇩🇪</p>
         </div>
       </div>
     </footer>
