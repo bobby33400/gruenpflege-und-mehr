@@ -54,11 +54,7 @@ function Impressum() {
 
         <section className="mt-8 space-y-2">
           <h2 className="text-xl font-semibold">Umsatzsteuer-ID</h2>
-          <p className="text-muted-foreground">
-            Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:
-            <br />
-            <span className="italic">[Platzhalter – bitte ergänzen]</span>
-          </p>
+          <p>Wirtschafts-IdNr: DE420812382</p>
         </section>
 
         <section className="mt-8 space-y-2">
@@ -69,17 +65,6 @@ function Impressum() {
           <p>Am Willenbach 3/1</p>
           <p>74229 Oedheim</p>
           <p>Deutschland</p>
-        </section>
-
-        <section className="mt-8 space-y-2">
-          <h2 className="text-xl font-semibold">Berufshaftpflichtversicherung</h2>
-          <p className="text-muted-foreground">
-            Name und Sitz des Versicherers:{" "}
-            <span className="italic">[Platzhalter – bitte ergänzen]</span>
-            <br />
-            Geltungsraum der Versicherung:{" "}
-            <span className="italic">[Platzhalter – bitte ergänzen]</span>
-          </p>
         </section>
 
         <section className="mt-8 space-y-2">
