@@ -44,11 +44,11 @@ export function Services() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <div className="mt-12 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 [&>*:nth-child(1)]:lg:col-span-2 [&>*:nth-child(2)]:lg:col-span-2 [&>*:nth-child(3)]:lg:col-span-2 [&>*:nth-child(4)]:lg:col-span-3 [&>*:nth-child(5)]:lg:col-span-3 [&>*:nth-child(4)]:sm:col-span-2 [&>*:nth-child(5)]:sm:col-span-2 [&>*:nth-child(4)]:sm:max-w-md [&>*:nth-child(5)]:sm:max-w-md [&>*:nth-child(4)]:sm:mx-auto [&>*:nth-child(5)]:sm:mx-auto">
           {services.map((s, i) => (
             <article
               key={s.title}
-              className="group rounded-xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-primary/40"
+              className="group rounded-xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-primary/40 w-full"
               style={{ boxShadow: "var(--shadow-card)", animationDelay: `${i * 80}ms` }}
             >
               <div className="grid place-items-center h-12 w-12 rounded-lg bg-accent text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
