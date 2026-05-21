@@ -111,8 +111,8 @@ export function Contact() {
           style={{ boxShadow: "var(--shadow-card)" }}
         >
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Name" name="name" placeholder="Ihr Name" required />
-            <Field label="Telefonnummer" name="phone" placeholder="+49 ..." type="tel" required />
+            <Field label="Name" name="name" placeholder="Ihr Name" required maxLength={100} />
+            <Field label="Telefonnummer" name="phone" placeholder="+49 ..." type="tel" required maxLength={40} />
           </div>
           <div className="mt-4">
             <Field label="E-Mail" name="email" placeholder="ihre@email.de" type="email" required />
@@ -168,12 +168,14 @@ function Field({
   placeholder,
   type = "text",
   required = false,
+  maxLength = 255,
 }: {
   label: string;
   name: string;
   placeholder?: string;
   type?: string;
   required?: boolean;
+  maxLength?: number;
 }) {
   return (
     <div>
@@ -184,7 +186,7 @@ function Field({
         id={name}
         type={type}
         name={name}
-        maxLength={255}
+        maxLength={maxLength}
         required={required}
         placeholder={placeholder}
         className="mt-1.5 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
