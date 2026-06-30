@@ -4,6 +4,8 @@ import { Link } from "@tanstack/react-router";
 import { z } from "zod";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { SectionHeading } from "./SectionHeading";
+import { WaveDivider } from "./WaveDivider";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Bitte Namen eingeben").max(100),
@@ -11,6 +13,17 @@ const schema = z.object({
   phone: z.string().trim().min(1, "Bitte Telefonnummer eingeben").max(40),
   message: z.string().trim().min(1, "Bitte Nachricht eingeben").max(2000),
 });
+
+const contactMethods = [
+  { icon: Phone, label: "0151 55510325", href: "tel:+4915155510325" },
+  {
+    icon: MessageCircle,
+    label: "WhatsApp Chat starten",
+    href: "https://wa.me/4915155510325",
+    external: true,
+  },
+  { icon: Mail, label: "n@abdelhady-gruenpflege.de", href: "mailto:n@abdelhady-gruenpflege.de" },
+];
 
 export function Contact() {
   const [loading, setLoading] = useState(false);
@@ -30,7 +43,12 @@ export function Contact() {
     };
     const parsed = schema.safeParse(data);
     if (!parsed.success) {
-      setErrorMsg(parsed.error.issues[0]?.message ?? "Bitte Eingaben prüfen.");
+      const issue = parsed.error.issues[0];
+      setErrorMsg(issue?.message ?? "Bitte Eingaben prüfen.");
+      const fieldId = issue?.path[0];
+      if (typeof fieldId === "string") {
+        formEl.querySelector<HTMLElement>(`#${fieldId}`)?.focus();
+      }
       return;
     }
 
@@ -54,72 +72,56 @@ export function Contact() {
   };
 
   return (
-    <section id="kontakt" className="py-20 md:py-28 bg-background">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid gap-12 lg:grid-cols-2">
+    <section
+      id="kontakt"
+      className="relative bg-background pt-20 md:pt-28 pb-28 md:pb-40 scroll-mt-20"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid gap-12 lg:grid-cols-2 lg:items-start">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wider text-primary">Kontakt</p>
-          <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground">
-            Kostenloses Angebot erhalten
-          </h2>
-          <p className="mt-4 text-muted-foreground">
+          <SectionHeading eyebrow="Kontakt" title="Kostenloses Angebot erhalten">
             Schreiben Sie uns – wir melden uns schnellstmöglich mit einem
             unverbindlichen Angebot zurück.
-          </p>
+          </SectionHeading>
 
-          <ul className="mt-8 space-y-4">
-            <li className="flex items-center gap-3">
-              <span className="grid place-items-center h-10 w-10 rounded-lg bg-accent text-primary">
-                <Phone className="h-5 w-5" />
+          <ul className="mt-8 space-y-3">
+            {contactMethods.map((m) => (
+              <li key={m.label}>
+                <a
+                  href={m.href}
+                  {...(m.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="group flex items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30"
+                >
+                  <span className="grid place-items-center h-11 w-11 shrink-0 rounded-xl bg-accent text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+                    <m.icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <span className="font-medium text-foreground">{m.label}</span>
+                </a>
+              </li>
+            ))}
+            <li className="flex items-center gap-4 rounded-2xl px-4 py-2 text-muted-foreground">
+              <span className="grid place-items-center h-11 w-11 shrink-0 rounded-xl bg-secondary text-primary">
+                <MapPin className="h-5 w-5" aria-hidden="true" />
               </span>
-              <a href="tel:+4915155510325" className="text-foreground hover:text-primary">
-                0151 55510325
-              </a>
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="grid place-items-center h-10 w-10 rounded-lg bg-accent text-primary">
-                <MessageCircle className="h-5 w-5" />
-              </span>
-              <a
-                href="https://wa.me/4915155510325"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground hover:text-primary"
-              >
-                WhatsApp Chat starten
-              </a>
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="grid place-items-center h-10 w-10 rounded-lg bg-accent text-primary">
-                <Mail className="h-5 w-5" />
-              </span>
-              <a href="mailto:n@abdelhady-gruenpflege.de" className="text-foreground hover:text-primary">
-                n@abdelhady-gruenpflege.de
-              </a>
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="grid place-items-center h-10 w-10 rounded-lg bg-accent text-primary">
-                <MapPin className="h-5 w-5" />
-              </span>
-              <span className="text-foreground">Deutschland</span>
+              <span className="font-medium">Oedheim & Umgebung, Deutschland</span>
             </li>
           </ul>
         </div>
 
         <form
           onSubmit={onSubmit}
-          className="rounded-2xl border border-border bg-card p-6 md:p-8"
-          style={{ boxShadow: "var(--shadow-card)" }}
+          noValidate
+          className="rounded-3xl border border-border bg-card p-6 md:p-8 shadow-[var(--shadow-leaf)]"
         >
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Name" name="name" placeholder="Ihr Name" required maxLength={100} />
-            <Field label="Telefonnummer" name="phone" placeholder="+49 ..." type="tel" required maxLength={40} />
+            <Field label="Name" name="name" placeholder="Ihr Name" required maxLength={100} autoComplete="name" />
+            <Field label="Telefonnummer" name="phone" placeholder="+49 ..." type="tel" inputMode="tel" autoComplete="tel" required maxLength={40} />
           </div>
           <div className="mt-4">
-            <Field label="E-Mail" name="email" placeholder="ihre@email.de" type="email" required />
+            <Field label="E-Mail" name="email" placeholder="ihre@email.de" type="email" inputMode="email" autoComplete="email" required maxLength={255} />
           </div>
           <div className="mt-4">
             <label className="block text-sm font-medium text-foreground" htmlFor="message">
-              Nachricht
+              Nachricht <span className="text-warm" aria-hidden="true">*</span>
             </label>
             <textarea
               id="message"
@@ -128,12 +130,12 @@ export function Contact() {
               maxLength={2000}
               required
               placeholder="Wie können wir helfen?"
-              className="mt-1.5 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
+              className="mt-1.5 w-full rounded-xl border border-input bg-background px-4 py-3 text-base transition-colors focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30"
             />
           </div>
 
           {errorMsg && (
-            <p className="mt-4 text-sm text-destructive" role="alert">
+            <p className="mt-4 text-sm font-medium text-destructive" role="alert" aria-live="polite">
               {errorMsg}
             </p>
           )}
@@ -141,9 +143,9 @@ export function Contact() {
           <button
             type="submit"
             disabled={loading}
-            className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-base font-semibold text-primary-foreground hover:bg-primary-deep transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+            className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-base font-semibold text-primary-foreground shadow-sm transition-all duration-300 hover:bg-primary-deep hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"
           >
-            {loading && <Loader2 className="h-4 w-4 animate-spin" />}
+            {loading && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
             {loading ? "Wird gesendet..." : "Kostenloses Angebot erhalten"}
           </button>
 
@@ -151,13 +153,15 @@ export function Contact() {
             Mit dem Absenden willigen Sie ein, dass Ihre Angaben zur
             Bearbeitung Ihrer Anfrage verarbeitet werden. Weitere Informationen
             finden Sie in unserer{" "}
-            <Link to="/datenschutz" className="text-primary hover:underline">
+            <Link to="/datenschutz" className="text-primary font-medium hover:underline">
               Datenschutzerklärung
             </Link>
             . Sie können Ihre Einwilligung jederzeit per E-Mail widerrufen.
           </p>
         </form>
       </div>
+
+      <WaveDivider color="var(--color-primary-deep)" />
     </section>
   );
 }
@@ -169,6 +173,8 @@ function Field({
   type = "text",
   required = false,
   maxLength = 255,
+  inputMode,
+  autoComplete,
 }: {
   label: string;
   name: string;
@@ -176,11 +182,16 @@ function Field({
   type?: string;
   required?: boolean;
   maxLength?: number;
+  inputMode?: "text" | "tel" | "email" | "numeric";
+  autoComplete?: string;
 }) {
   return (
     <div>
       <label className="block text-sm font-medium text-foreground" htmlFor={name}>
-        {label}
+        {label}{" "}
+        {required && (
+          <span className="text-warm" aria-hidden="true">*</span>
+        )}
       </label>
       <input
         id={name}
@@ -189,7 +200,9 @@ function Field({
         maxLength={maxLength}
         required={required}
         placeholder={placeholder}
-        className="mt-1.5 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
+        inputMode={inputMode}
+        autoComplete={autoComplete}
+        className="mt-1.5 w-full rounded-xl border border-input bg-background px-4 py-3 text-base transition-colors focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30"
       />
     </div>
   );

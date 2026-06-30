@@ -5,17 +5,19 @@ import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-[100svh] items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Seite nicht gefunden</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <p className="font-serif text-8xl font-semibold text-primary">404</p>
+        <h1 className="mt-4 font-serif text-2xl font-semibold text-foreground">
+          Seite nicht gefunden
+        </h1>
+        <p className="mt-3 text-muted-foreground">
           Die gesuchte Seite existiert nicht oder wurde verschoben.
         </p>
-        <div className="mt-6">
+        <div className="mt-8">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-base font-semibold text-primary-foreground shadow-sm transition-all duration-300 hover:bg-primary-deep hover:-translate-y-0.5"
           >
             Zur Startseite
           </Link>
@@ -43,6 +45,12 @@ export const Route = createRootRoute({
       { name: "twitter:image", content: "https://gruenpflege-und-mehr.lovable.app/og-image.jpg" },
     ],
     links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..600&family=Raleway:wght@300..700&display=swap",
+      },
       {
         rel: "stylesheet",
         href: appCss,
