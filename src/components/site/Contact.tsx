@@ -56,9 +56,9 @@ export function Contact() {
     const { error } = await supabase
       .from("contact_submissions")
       .insert(parsed.data);
-    setLoading(false);
 
     if (error) {
+      setLoading(false);
       console.error("Kontaktformular Fehler:", error);
       setErrorMsg(
         "Anfrage konnte nicht gesendet werden. Bitte später erneut versuchen oder uns direkt anrufen."
@@ -67,6 +67,19 @@ export function Contact() {
       return;
     }
 
+    // Notify by email. The submission is already saved, so a failed
+    // notification must not block the user's confirmation.
+    try {
+      const { error: notifyError } = await supabase.functions.invoke(
+        "notify-contact",
+        { body: parsed.data },
+      );
+      if (notifyError) console.error("E-Mail-Benachrichtigung fehlgeschlagen:", notifyError);
+    } catch (notifyErr) {
+      console.error("E-Mail-Benachrichtigung fehlgeschlagen:", notifyErr);
+    }
+
+    setLoading(false);
     toast.success("Vielen Dank! Wir melden uns schnellstmöglich bei Ihnen.");
     formEl.reset();
   };
